@@ -1,8 +1,8 @@
 # weather-lookup-app
 
-` Repo Url: ` https://github.com/dexit/AdHocJobHitlist
+` Repo Url: ` https://github.com/dexit/weather-lookup-app
 
-`Live Deployed Url:` https://dexit.github.io/AdHocJobHitlist/
+`Live Deployed Url:` https://dexit.github.io/weather-lookup-app
 
 ## Acceptance Criteria
 
