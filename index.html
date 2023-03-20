@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+   
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Lookup</title>
+  </head>
 
+  <body>
+    <header class="header-class">
+      <h1 class="my-title">Weather Lookup </h1>
+    </header>
+    <main class="main container">
+    <aside class="sidebar">
+      <form method="" action="">
+      <input type="text" id="city" class="input-city" placeholder="Search for a city" autofocus>
+        <button type="submit" class="button submit">SUBMIT</button>
+      </form>
+    </aside>
+    <div class="results container">
+    <ul class="cities"></ul>
+    </div>
+  </main>
+ <script>
+    function loadDeferredScripts() {
+      // a basic function to be used to load scripts dynanically
+      function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+          var script = document.createElement('script');
+          script.src = src;
+          script.defer = true;
+          script.async = false;
+          //  script.crossOrigin = '';
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script); // Append to the body instead of the head
+        });
+      }
+
+      loadScript('https://code.jquery.com/jquery-3.6.4.min.js')
+        .then(function () {
+          var scriptUrls = [
+            'https://cdn.jsdelivr.net/npm/bulma-calendar@6.1.19/dist/js/bulma-calendar.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js',
+            './assets/js/weatherapi.js',
+            './assets/js/cards.js',
+            './assets/js/script.js',
+
+          ];
+
+          return Promise.all(scriptUrls.map(loadScript));
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+    // add event listener for just when the DOM is loaded, without waiting for the whole page resources to load.
+    document.addEventListener('DOMContentLoaded', function () {
+      loadDeferredScripts();
+
+    });
+
+  </script>
+  </body>
+</html>
