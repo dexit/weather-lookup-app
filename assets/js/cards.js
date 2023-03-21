@@ -21,3 +21,8 @@ var cardBase = `<div class="card text-bg-primary" data-date="${data.dt_notime}">
 
   return cardBase;
 }
+
+function generateCardBREAK(data2) {
+  var cardBase2 = `<br><hr><span data-group"${data2}">${data2}</span><hr><br>`;
+return cardBase2;
+}

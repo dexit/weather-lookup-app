@@ -86,11 +86,11 @@ $("#weatherLookup").on('submit',function(event) {
                         for (var i = 0; i < sorted[key].length - 1; i++) {
                           if(sorted[key] == null){
                             let meh = resultsSelector.html();
-                           var resultee = '<div class="row">'+ meh;
+                           var resultee = '<div class="row">'+ sorted[key] + '' + meh;
                             sorted[key] = [];
                             //let carded = generateCard(sorted[key][i]);
-                          
-                            resultsSelector.html(meh + '</div>');
+                            var carded = generateCardBREAK(sorted[key]);
+                           // resultsSelector.html('<div class="row">'+ sorted[key] +''+ meh + '</div>');
                           } else {
                             var carded = generateCard(sorted[key][i]);
                           }
