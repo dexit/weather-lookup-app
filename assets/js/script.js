@@ -31,7 +31,7 @@ $("#weatherLookup").on('submit',function(event) {
         // check if searchvalue exists in searches localstorage obj
         if (searches.indexOf(searchValue) === -1) {
           searches.push(searchValue);
-         // localStorage.setItem('searches', JSON.stringify(searches));
+         localStorage.setItem('searches', JSON.stringify(searches));
         }
        // searches.push(searchValue);
         if(searchValue){
