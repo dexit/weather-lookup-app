@@ -4,6 +4,7 @@
 // using the weatherapi.js file and cards.js file
 
 jQuery(document).ready(function($) {
+  localStorage.removeItem
    // setting a local storage key to store an array of strings
 var searches = JSON.parse(localStorage.getItem('searches')) || [];
 var searchValue;
@@ -83,7 +84,17 @@ $("#weatherLookup").on('submit',function(event) {
                     //   console.log(sorted);
                       for (var key in sorted) {
                         for (var i = 0; i < sorted[key].length - 1; i++) {
-                          let carded = generateCard(sorted[key][i]);
+                          if(sorted[key] == null){
+                            let meh = resultsSelector.html();
+                           var resultee = '<div class="row">'+ meh;
+                            sorted[key] = [];
+                            //let carded = generateCard(sorted[key][i]);
+                          
+                            resultsSelector.html(meh + '</div>');
+                          } else {
+                            var carded = generateCard(sorted[key][i]);
+                          }
+                        
                           emptyCardResults += carded;
                         }
                         //var carded = generateCard(sorted[key]);

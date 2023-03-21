@@ -7,3 +7,24 @@
     flex: 1 1 16%;
     margin: 16px;
 }
+
+h5.card-title {display: flex;flex-direction: column;flex-wrap: wrap;align-content: flex-end;align-items: flex-start;}
+
+img.image.card-img-top.card-text {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: -7.5%;
+    left: -3.5%;
+    background: #1b70fa;
+    border-radius: 100px!important;
+    mix-blend-mode: normal;
+}
+
+.card-header {
+    text-align: right;
+    font-size: 0.8rem;
+    margin-right: 0!important;
+    padding-right: 0!important;
+    opacity: .65;
+}
