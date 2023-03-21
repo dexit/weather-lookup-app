@@ -8,13 +8,14 @@ jQuery(document).ready(function($) {
 var searches = JSON.parse(localStorage.getItem('searches')) || [];
 var searchValue;
 var resultsSelector = $(".results .card-group");
-var daysToView = 5;
+var daysToView = 1;
  var emptyCardResults;
-
+   var sorted = {}; 
 $("#weatherLookup").on('submit',function(event) {
         event.preventDefault();
         resultsSelector.empty();
 
+ 
        
         searchValue = $("#city").val();
 
@@ -22,13 +23,23 @@ $("#weatherLookup").on('submit',function(event) {
         searches.push(searchValue);
         if(searchValue){
         var dateToday = new Date().toISOString().slice(0,10);
-            var weatherResult = getForecast(searchValue, dateToday);
+           
+        for(var i = 0; i < daysToView; i++){
+               var getmeNextDay = new Date(
+                 Date.parse(dateToday) +
+                 24 * 60 * 60 * 1000 * i
+               ).toISOString().slice(0, 10);
 
-            weatherResult.then(function(response) {
-                if(response.ok) {
-                    response.json().then(function (data) {
-                        console.log(data);
-                       for (var i = 0; i < data.list.length; i++) {
+             var weatherResult = getForecast(searchValue, getmeNextDay);  
+              
+            weatherResult
+              .then(function (response) {
+                if (response.ok) {
+                  response
+                    .json()
+                    .then(function (data) {
+                      console.log(data);
+                      for (var i = 0; i < data.list.length; i++) {
                         let mainObjData = data.list[i].main;
                         let weatherObjData = data.list[i].weather[0];
                         let cardBase = {
@@ -42,32 +53,52 @@ $("#weatherLookup").on('submit',function(event) {
                           temp: mainObjData.temp,
                           temp_max: mainObjData.temp_max,
                           temp_min: mainObjData.temp_min,
-                          weather_icon: 'https://openweathermap.org/img/wn/'+weatherObjData.icon+'@2x.png',
+                          weather_icon:
+                            "https://openweathermap.org/img/wn/" +
+                            weatherObjData.icon +
+                            "@2x.png",
                           weather_main: weatherObjData.main,
                           weather_description: weatherObjData.description,
                         };
-                        resultsSelector.append(generateCard(cardBase)); 
-                          //  emptyCardResults += generateCard(cardBase);
-                            //$(".results").append(emptyCardResults);
-                        } 
-                       
+                        let groupedDB = data.list[i].dt_txt.split(" ")[0];
+                        if(sorted[groupedDB] == null) sorted[groupedDB] = [];
+                        sorted[groupedDB].push(cardBase);
+                        
+                      }
+   
                       // var carded = generateCard(cardBase);
-                     //  emptyCardResults += carded;
-                        }).catch(function(error) {
-                            console.error(error);
-                        })
-                   // var cardBase = generateCard(data);
-                   // $(".card-deck").append(cardBase);
+                      //  emptyCardResults += carded;
+                    //   console.log(sorted);
+                      for (var key in sorted) {
+                        for (var i = 0; i < sorted[key].length - 1; i++) {
+                          let carded = generateCard(sorted[key][i]);
+                          emptyCardResults += carded;
+                        }
+                        //var carded = generateCard(sorted[key]);
+                        //emptyCardResults += carded;
+                       // console.log(sorted[key]);
+
+                      }
+                      
+                      resultsSelector.append(emptyCardResults);
+                    })
+                    .catch(function (error) {
+                      console.error(error);
+                    });
+                  // var cardBase = generateCard(data);
+                  // $(".card-deck").append(cardBase);
                 } else {
-                    // error thrown if the text enterred returns an invalid api call
-                    console.error('Please enter a valid country or city name');
-                }           
-            
-                
-            }).catch(function(error) {
+                  // error thrown if the text enterred returns an invalid api call
+                  console.error("Please enter a valid country or city name");
+                }
+              })
+              .catch(function (error) {
                 console.log(error);
-            });
+              });
            
+            
+            }
+ 
               //  var weatherData = response;
         /* console.log(weatherResult);
                 var data = weatherResult;

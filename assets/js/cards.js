@@ -6,9 +6,6 @@ var cardBase = `<div class="card text-bg-primary">
     <img class="image card-img-top card-text" src="${data.weather_icon}">
   <div class="card-header">${data.dt_txt}</div>
   <div class="card-body">
-
-
-
     <h5 class="card-title"></h5>${data.weather_main} ${data.weather_description} </h5>
     <p class="card-text">Feels like: ${data.feels_like}</p>
     <p class="card-text">Temp: ${data.temp}</p>
