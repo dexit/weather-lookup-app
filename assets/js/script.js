@@ -7,29 +7,47 @@ jQuery(document).ready(function($) {
    // setting a local storage key to store an array of strings
 var searches = JSON.parse(localStorage.getItem('searches')) || [];
 var searchValue;
+var resultsSelector = $(".results");
+var daysToView = 5;
+ var emptyCardResults;
 
-    $("#weatherLookup").on('submit',function(event) {
+$("#weatherLookup").on('submit',function(event) {
         event.preventDefault();
-        var emptyCardResults;
-        var searchValue = $("#city").val();
+        resultsSelector.empty();
+
+       
+        searchValue = $("#city").val();
+
         localStorage.setItem('searches', JSON.stringify(searches));
         searches.push(searchValue);
         if(searchValue){
         var dateToday = new Date().toISOString().slice(0,10);
-            var weatherResult = getForecast5day(searchValue);
+            var weatherResult = getForecast(searchValue, dateToday);
 
             weatherResult.then(function(response) {
                 if(response.ok) {
                     response.json().then(function (data) {
                         console.log(data);
                        for (var i = 0; i < data.list.length; i++) {
+                        let mainObjData = data.list[i].main;
+                        let weatherObjData = data.list[i].weather[0];
                         let cardBase = {
-                            header: data.city.name,
-                            title: data.list[i].weather[0].main,
-                            content: data.list[i].weather[0].description
-                        }
+                          dt: data.list[i].dt,
+                          dt_txt: data.list[i].dt_txt,
+                          dt_notime: new Date(data.list[i].dt_txt)
+                            .toISOString()
+                            .slice(0, 10),
+                          clouds: data.list[i].clouds.all,
+                          feels_like: mainObjData.feels_like,
+                          temp: mainObjData.temp,
+                          temp_max: mainObjData.temp_max,
+                          temp_min: mainObjData.temp_min,
+                          weather_main: weatherObjData.main,
+                          weather_description: weatherObjData.description,
+                        };
                             let  carded = generateCard(cardBase);
                             emptyCardResults += carded;
+                            //$(".results").append(emptyCardResults);
                         } 
                        
                       // var carded = generateCard(cardBase);
