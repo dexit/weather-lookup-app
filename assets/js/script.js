@@ -11,16 +11,28 @@ var resultsSelector = $(".results .card-group");
 var daysToView = 1;
  var emptyCardResults;
    var sorted = {}; 
+      for (var i = 0; i < searches.length; i++) {
+        var option = $("<option></option>");
+        option.text(searches[i]);
+        option.attr("value", searches[i]);
+        $("#datalistOptions").append(option);
+      }
 $("#weatherLookup").on('submit',function(event) {
         event.preventDefault();
         resultsSelector.empty();
 
  
-       
+       // create a <options></options> entry for each available localstorage searches value parsed from json
+     
         searchValue = $("#city").val();
 
         localStorage.setItem('searches', JSON.stringify(searches));
-        searches.push(searchValue);
+        // check if searchvalue exists in searches localstorage obj
+        if (searches.indexOf(searchValue) === -1) {
+          searches.push(searchValue);
+         // localStorage.setItem('searches', JSON.stringify(searches));
+        }
+       // searches.push(searchValue);
         if(searchValue){
         var dateToday = new Date().toISOString().slice(0,10);
            
