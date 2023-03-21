@@ -79,20 +79,28 @@ $("#weatherLookup").on('submit',function(event) {
                         
                       }
    
-                      // var carded = generateCard(cardBase);
+                      var carded3 = Object.values(sorted);
+                      console.log(carded3);
+                      var category2 = [];
                       //  emptyCardResults += carded;
                     //   console.log(sorted);
                       for (var key in sorted) {
                         for (var i = 0; i < sorted[key].length - 1; i++) {
                           if(sorted[key] == null){
-                            let meh = resultsSelector.html();
-                           var resultee = '<div class="row">'+ sorted[key] + '' + meh;
-                            sorted[key] = [];
+                            //let meh = resultsSelector.html();
+                           //var resultee = '<div class="row">'+ sorted[key] + '' + meh;
+                         //   sorted[key] = [];
                             //let carded = generateCard(sorted[key][i]);
-                            var carded = generateCardBREAK(sorted[key]);
+                           carded = generateCardBREAK(sorted[key]);
                            // resultsSelector.html('<div class="row">'+ sorted[key] +''+ meh + '</div>');
                           } else {
-                            var carded = generateCard(sorted[key][i]);
+                            
+                          console.log(sorted[key][i]);
+                          //sorted[key][i].dt_notime
+                      
+                           category2.push(sorted[key][i].dt_notime);
+                           
+                            carded = generateCard(sorted[key][i]);
                           }
                         
                           emptyCardResults += carded;
@@ -102,8 +110,18 @@ $("#weatherLookup").on('submit',function(event) {
                        // console.log(sorted[key]);
 
                       }
-                      
+
                       resultsSelector.append(emptyCardResults);
+                      function unique(array){
+                        return $.grep(array,function(el,index){
+                            return index == $.inArray(el,array);
+                        });
+                    }
+                    var shallbemine =  unique(jQuery(category2));
+                    jQuery(shallbemine).each(function(index, value) {
+                        resultsSelector.append('<section class="col-12 row d-flex" data-dategroup="'+value+'"><h4>'+value+'</h4></section>');
+                        jQuery('div[data-date="'+value+'"]').appendTo('section[data-dategroup="'+value+'"]');
+                      })
                     })
                     .catch(function (error) {
                       console.error(error);

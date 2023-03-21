@@ -93,3 +93,10 @@ form#weatherLookup {
 input#city {
     border-radius: 15px 15px 0px 0px!important;
 }
+
+h4 {
+    z-index: 999999!Important;
+    margin: 56px 26px;
+    text-align: center;
+    padding-top: 56px;
+}
