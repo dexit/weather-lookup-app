@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
    // setting a local storage key to store an array of strings
 var searches = JSON.parse(localStorage.getItem('searches')) || [];
 var searchValue;
-var resultsSelector = $(".results");
+var resultsSelector = $(".results .card-group");
 var daysToView = 5;
  var emptyCardResults;
 
@@ -42,11 +42,12 @@ $("#weatherLookup").on('submit',function(event) {
                           temp: mainObjData.temp,
                           temp_max: mainObjData.temp_max,
                           temp_min: mainObjData.temp_min,
+                          weather_icon: 'https://openweathermap.org/img/wn/'+weatherObjData.icon+'@2x.png',
                           weather_main: weatherObjData.main,
                           weather_description: weatherObjData.description,
                         };
-                            let  carded = generateCard(cardBase);
-                            emptyCardResults += carded;
+                        resultsSelector.append(generateCard(cardBase)); 
+                          //  emptyCardResults += generateCard(cardBase);
                             //$(".results").append(emptyCardResults);
                         } 
                        
@@ -83,6 +84,6 @@ $("#weatherLookup").on('submit',function(event) {
             alert("Please enter a city value");
         }
     
-        $(".results").append(emptyCardResults);
+       // $(".results").append(emptyCardResults);
 });
 });

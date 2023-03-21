@@ -25,17 +25,24 @@
     <header class="header-class">
       <h1 class="my-title">Weather Lookup </h1>
     </header>
-    <main class="main container">
-    <aside class="sidebar">
+<main class="main container-flex col-12">
+  <div class="row" style="
+    margin: 0!important;
+">
+    <aside class="col-3 sidebar">
       <form method="" action="" id="weatherLookup">
-      <input type="text" id="city" class="input-city" placeholder="Search for a city" autofocus>
+        <input type="text" id="city" class="input-city" placeholder="Search for a city" autofocus="">
         <button type="submit" class="button submit">SUBMIT</button>
       </form>
     </aside>
-    <div class="results container">
-  
+    <div class="col-9 results container-flex">
+      <div class="card-group justify-items-between d-flex row row-cols-1 row-cols-md-3 mb-3 ">
+
+
+      </div>
     </div>
-  </main>
+  </div>
+</main>
   <footer class="footer-class">
   </footer>
  <script>

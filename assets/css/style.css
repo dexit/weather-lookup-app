@@ -3,3 +3,7 @@
     font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
 
 }
+.card-group>.card {
+    flex: 1 1 16%;
+    margin: 16px;
+}
