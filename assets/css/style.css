@@ -3,6 +3,10 @@
     font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
 
 }
+
+body {
+    background: #1e90ff33;
+}
 .card-group>.card {
     flex: 1 1 16%;
     margin: 16px;
@@ -73,4 +77,19 @@ h5.card-title {
 
 .card-group>.card {
     border-radius: 20px!important;
+}
+
+button.button.col-12.btn.btn-primary.mb-1 {
+    border-radius: 0px 0px 15px 15px;
+}
+button.button.col-12.btn.btn-primary {
+    border-radius: 0px 0px 15px 15px;
+}
+form#weatherLookup {
+    border-radius: 15px;
+    padding: 0;
+}
+
+input#city {
+    border-radius: 15px 15px 0px 0px!important;
 }
