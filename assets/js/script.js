@@ -137,7 +137,7 @@ $("#weatherLookup").on('submit',function(event) {
         }else{
             alert("Please enter a city value");
         }
-    
+
        // $(".results").append(emptyCardResults);
 });
 });
